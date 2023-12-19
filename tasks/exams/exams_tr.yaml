@@ -1,0 +1,3 @@
+task: exams_tr
+dataset_name: crosslingual_tr
+include: exams_common_yaml

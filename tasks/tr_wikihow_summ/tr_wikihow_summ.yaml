@@ -1,0 +1,29 @@
+task: tr-wikihow-summ
+dataset_path: ardauzunoglu/tr-wikihow-summ
+dataset_name: null
+training_split: train
+validation_split: validation
+test_split: test
+output_type: generate_until
+doc_to_text: "{{text}}"
+doc_to_target: "{{summary}}"
+# process_results: !function utils.process_results_gen
+generation_kwargs:
+  until:
+    - "</s>"
+  do_sample: false
+  temperature: 0.0
+  max_length: 512
+metric_list:
+  - metric: !function metrics.rouge1
+    aggregation: !function metrics.agg_rouge1
+    higher_is_better: true
+  - metric: !function metrics.rouge2
+    aggregation: !function metrics.agg_rouge2
+    higher_is_better: true
+  - metric: !function metrics.rougeL
+    aggregation: !function metrics.agg_rougeL
+    higher_is_better: true
+  - metric: !function metrics.rougeLsum
+    aggregation: !function metrics.agg_rougeLsum
+    higher_is_better: true
