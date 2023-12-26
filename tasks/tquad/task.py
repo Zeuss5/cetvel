@@ -1,22 +1,10 @@
 """
-On the Cross-lingual Transferability of Monolingual Representations
-https://arxiv.org/abs/1910.11856
+Turkish NLP Q&A Dataset
 
-State-of-the-art unsupervised multilingual models (e.g., multilingual BERT) have been shown to generalize in a
-zero-shot cross-lingual setting. This generalization ability has been attributed to the use of a shared subword
-vocabulary and joint training across multiple languages giving rise to deep multilingual abstractions.
-We evaluate this hypothesis by designing an alternative approach that transfers a monolingual model to new
-languages at the lexical level. More concretely, we first train a transformer-based masked language model on
-one language, and transfer it to a new language by learning a new embedding matrix with the same masked language
-modeling objective, freezing parameters of all other layers. This approach does not rely on a shared vocabulary
-or joint training. However, we show that it is competitive with multilingual BERT on standard cross-lingual
-classification benchmarks and on a new Cross-lingual Question Answering Dataset (XQuAD). Our results contradict
-common beliefs of the basis of the generalization ability of multilingual models and suggest that deep monolingual
-models learn some abstractions that generalize across languages. We also release XQuAD as a more comprehensive
-cross-lingual benchmark, which comprises 240 paragraphs and 1190 question-answer pairs from SQuAD v1.1 translated
-into ten languages by professional translators. 
+This dataset is the Turkish Question & Answer dataset on Turkish & Islamic Science History 
+within the scope of Teknofest 2018 Artificial Intelligence competition.
 
-Homepage: https://github.com/google-deepmind/xquad
+Homepage: https://github.com/TQuad/turkish-nlp-qa-dataset
 """
 import datasets
 from evaluate import load
@@ -30,20 +18,14 @@ from lm_eval.api.instance import Instance
 from lm_eval.api.registry import register_task
 
 _CITATION = """
-@article{Artetxe:etal:2019,
-      author    = {Mikel Artetxe and Sebastian Ruder and Dani Yogatama},
-      title     = {On the cross-lingual transferability of monolingual representations},
-      journal   = {CoRR},
-      volume    = {abs/1910.11856},
-      year      = {2019},
-      archivePrefix = {arXiv},
-      eprint    = {1910.11856}
-}
 """
 
 
 def _squad_metric(predictions, references):
+    # squad_metric = load("squad_v2")
     squad_metric = datasets.load_metric("squad_v2")
+    # print("predictions: ", predictions)
+    # print("references: ", references)
     return squad_metric.compute(predictions=predictions, references=references)
 
 
@@ -53,9 +35,10 @@ def _squad_agg(key, items):
     return _squad_metric(predictions=predictions, references=references).get(key, 0)
 
 
-class XQuAD(Task):
+@register_task("tquad")
+class TQuAD(Task):
     VERSION = 1
-    DATASET_PATH = "xquad"
+    DATASET_PATH = "mcemilg/tquad"
     DATASET_NAME = None
 
     def has_training_docs(self):
@@ -68,20 +51,20 @@ class XQuAD(Task):
         return False
 
     def training_docs(self):
-        return self.dataset["validation"]
+        return self.dataset["train"]
 
     def validation_docs(self):
         return self.dataset["validation"]
 
     def doc_to_text(self, doc):
         return (
-            "Context: "
+            "Kaynak: "
             + doc["context"]
             + "\n\n"
-            + "Question: "
+            + "Soru: "
             + doc["question"]
             + "\n\n"
-            + "Answer:"
+            + "Cevap:"
         )
 
     def should_decontaminate(self):
@@ -95,7 +78,7 @@ class XQuAD(Task):
         if len(answer_list) > 0:
             answer = answer_list[0]
         else:
-            answer = "unanswerable"
+            answer = "cevaplanamaz"
         return " " + answer
 
     def construct_requests(self, doc, ctx, **kwargs):
@@ -121,7 +104,7 @@ class XQuAD(Task):
             Instance(
                 request_type="loglikelihood",
                 doc=doc,
-                arguments=(ctx, " " + "unanswerable"),
+                arguments=(ctx, " " + "cevaplanamaz"),
                 idx=0,
                 **kwargs
             ),
@@ -235,26 +218,23 @@ class XQuAD(Task):
             "best_f1": True,  # Best F1 (with varying threshold)
         }
 
-@register_task("xquad-tr")
-class XQuADTR(XQuAD):
-    DATASET_NAME = "xquad.tr"
 
-    def doc_to_text(self, doc):
-        return (
-            "Kaynak: "
-            + doc["context"]
-            + "\n\n"
-            + "Soru: "
-            + doc["question"]
-            + "\n\n"
-            + "Cevap:"
-        )
+@register_task("tquad-xglm")
+class TQuADXGLM(TQuAD):
+    """generate until </s>"""
 
-
-@register_task("xquad-tr-xglm")
-class XQuADTRXGLM(XQuADTR):
     def construct_requests(self, doc, ctx, **kwargs):
-        """generate until </s>"""
+        """Uses RequestFactory to construct Requests and returns an iterable of
+        Requests which will be sent to the LM.
+
+        :param doc:
+            The document as returned from training_docs, validation_docs, or test_docs.
+        :param ctx: str
+            The context string, generated by fewshot_context. This includes the natural
+            language description, as well as the few shot examples, and the question
+            part of the document for `doc`.
+        """
+
         return [
             Instance(
                 request_type="generate_until",
@@ -266,7 +246,7 @@ class XQuADTRXGLM(XQuADTR):
             Instance(
                 request_type="loglikelihood",
                 doc=doc,
-                arguments=(ctx, " " + "unanswerable"),
+                arguments=(ctx, " " + "cevaplanamaz"),
                 idx=0,
                 **kwargs
             ),

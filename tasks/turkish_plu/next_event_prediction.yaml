@@ -1,0 +1,15 @@
+include: turkish_plu_common_yaml
+task: turkish_plu_next_event_prediction
+dataset_path: mcemilg/turkish-plu-next-event-prediction
+doc_to_text: "{{sent1}} {{sent2}}"
+doc_to_target: label
+doc_to_choice: "{{[ending0, ending1, ending2, ending3]}}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  - version: 1.0
