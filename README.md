@@ -13,7 +13,40 @@ The Turkish Language Model Evaluation tool is an extended version of the [lm-eva
 
 ## Installation & Usage
 
-*TODO*
+Clone the repository using the following command to fetch the submodules:
+
+```bash
+git clone git@github.com:KUIS-AI/tr-lm-eval.git --recursive
+```
+
+Replace the tasks folder in `lm-evaluation-harness`:
+```bash
+cd tr-lm-eval
+rm -rf lm-evaluation-harness/lm_eval/tasks
+ln -sfn "$(pwd)/tasks" "$(pwd)/lm-evaluation-harness/lm_eval/tasks"
+```
+
+Create a virtual environment with any tool of your choice (e.g. `conda`, `virtualenv`).
+```bash
+conda create -n tr-lm-eval python=3.9
+conda activate tr-lm-eval
+```
+
+Install the evaluation harness and other dependencies:
+```bash
+pip install -e ./lm-evaluation-harness
+pip install -r requirements.txt
+```
+
+Basic usage:
+```bash
+python -m lm_eval --model hf \
+ --model_args pretrained=openai-community/gpt2 \
+ --tasks exams_tr,xquad-tr,tquad,turkish_plu_prompt --device cuda:0 --batch_size 4 --write_out --log_samples --output_path outs
+```
+
+For more details on the usage, refer to the [lm-eval-harness](/lm-evaluation-harness/) repository.
+
 
 ## Task Details
 
