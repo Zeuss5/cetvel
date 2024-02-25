@@ -1,0 +1,28 @@
+task: xlsum_tr
+dataset_path: csebuetnlp/xlsum 
+dataset_name: turkish
+training_split: train
+validation_split: validation
+test_split: test
+output_type: generate_until
+doc_to_text: "Başlık: {{title}}\n\nMetin: {{text}}\n\nÖzet:"
+doc_to_target: "{{summary}}"
+generation_kwargs:
+  # until:
+  #   - "</s>"
+  do_sample: false
+  temperature: 0.0
+  # max_length: 512
+metric_list:
+  - metric: !function metrics.rouge1
+    aggregation: !function metrics.agg_rouge1
+    higher_is_better: true
+  - metric: !function metrics.rouge2
+    aggregation: !function metrics.agg_rouge2
+    higher_is_better: true
+  - metric: !function metrics.rougeL
+    aggregation: !function metrics.agg_rougeL
+    higher_is_better: true
+  - metric: !function metrics.rougeLsum
+    aggregation: !function metrics.agg_rougeLsum
+    higher_is_better: true
