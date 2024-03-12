@@ -50,6 +50,14 @@ For more details on the usage, refer to the [lm-eval-harness](/lm-evaluation-har
 
 ## Task Details
 
+| Datasets                                    | Tasks                                              | Metrics                            |
+|---------------------------------------------|----------------------------------------------------|------------------------------------|
+| [xquad](/tasks/xquad/), [tquad](/tasks/tquad/) | Extractive Question Answering                      | Exact Match, F1                    |
+| [wmt2016](/tasks/wmt2016/)                  | Machine Translation                                | wer, bleu                          |
+| [exams](/tasks/exams/)                      | Multiple Choice                                    | Accuracy, Norm Accuracy            |
+| [TurkishPLU/summarization](/tasks/tr_wikihow_summ/), [MLSum](tasks/mlsum), [XLSum](tasks/xlsum) | Summarization                                      | Rouge Scores                       |
+| [Turkish PLU](/tasks/turkish_plu/)          | Step Ordering, Next Event Prediction, Step Inference, Goal Inference | Accuracy, Norm Accuracy            |
+
 ### Extractive Question Answering
 - **Datasets**: [xquad](/tasks/xquad/), [tquad](/tasks/tquad/)
 - **Metrics**: Exact Match, F1
