@@ -1,8 +1,8 @@
-group: turkish_plu
+group: trclaim19
+dataset_path: mcemilg/TrClaim19
 output_type: multiple_choice
-training_split: train
-validation_split: validation
-test_split: test
+test_split: train
+should_decontaminate: true
 metric_list:
   - metric: acc
     aggregation: mean

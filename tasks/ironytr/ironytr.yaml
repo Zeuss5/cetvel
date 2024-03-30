@@ -1,14 +1,20 @@
-group: turkish_plu
+task: ironytr
+dataset_path: mcemilg/IronyTR
 output_type: multiple_choice
-training_split: train
 validation_split: validation
-test_split: test
+doc_to_text: "Cümle: {{text}}\nSoru: Bu cümlede ironi var mı?\n"
+doc_to_target: "{{label}}"
+doc_to_choice:
+  - "Hayır"
+  - "Evet"
 metric_list:
   - metric: acc
     aggregation: mean
     higher_is_better: true
   - metric: acc_norm
     aggregation: mean
+    higher_is_better: true
+  - metric: f1
     higher_is_better: true
 metadata:
   version: 0.0

@@ -16,7 +16,9 @@ metric_list:
     aggregation: !function metrics.agg_bleu
     higher_is_better: true
 generation_kwargs:
-  forced_bos_token_id: 250023 # tr bos token
+  forced_bos_token_id: 250023
   until: [
     "</s>"
   ]
+metadata:
+  version: 0.0

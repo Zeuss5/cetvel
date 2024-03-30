@@ -1,18 +1,20 @@
-task: xlsum_tr
-dataset_path: csebuetnlp/xlsum 
-dataset_name: turkish
+task: wiki_lingua_tr
+dataset_path: GEM/wiki_lingua
+dataset_name: tr
 training_split: train
 validation_split: validation
 test_split: test
 output_type: generate_until
-doc_to_text: "Başlık: {{title}}\n\nMetin: {{text}}\n\nÖzet:"
-doc_to_target: "{{summary}}"
+doc_to_text: "Metin: {{source}}\n\nÖzet: "
+doc_to_target: "{{target}}"
 generation_kwargs:
   # until:
-  #   - "</s>"
+  #   - "\n\n"
   do_sample: false
   temperature: 0.0
   # max_length: 512
+should_decontaminate: true
+doc_to_decontamination_query: target
 metric_list:
   - metric: !function metrics.rouge1
     aggregation: !function metrics.agg_rouge1

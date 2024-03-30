@@ -19,7 +19,6 @@ into ten languages by professional translators.
 Homepage: https://github.com/google-deepmind/xquad
 """
 import datasets
-from evaluate import load
 
 from math import exp
 from functools import partial
@@ -27,7 +26,7 @@ from packaging import version
 
 from lm_eval.api.task import Task
 from lm_eval.api.instance import Instance
-from lm_eval.api.registry import register_task
+from lm_eval.api.task import ConfigurableTask
 
 _CITATION = """
 @article{Artetxe:etal:2019,
@@ -43,7 +42,10 @@ _CITATION = """
 
 
 def _squad_metric(predictions, references):
+    # squad_metric = load("squad_v2")
     squad_metric = datasets.load_metric("squad_v2")
+    # print("predictions: ", predictions)
+    # print("references: ", references)
     return squad_metric.compute(predictions=predictions, references=references)
 
 
@@ -53,10 +55,18 @@ def _squad_agg(key, items):
     return _squad_metric(predictions=predictions, references=references).get(key, 0)
 
 
-class XQuAD(Task):
+class XQuADTR(ConfigurableTask):
     VERSION = 1
     DATASET_PATH = "xquad"
-    DATASET_NAME = None
+    DATASET_NAME = "xquad.tr"
+
+    # HF changed squad on us so we have to make sure we aren't running the old one
+    # assert version.parse(datasets.__version__) >= version.parse(
+    #     "1.11.0"
+    # ), "datasets v1.11.0 or later required for SQuAD"
+
+    def __init__(self):
+        super().__init__(config={"metadata": {"version": self.VERSION}})
 
     def has_training_docs(self):
         return True
@@ -74,14 +84,23 @@ class XQuAD(Task):
         return self.dataset["validation"]
 
     def doc_to_text(self, doc):
+        # return (
+        #     "Context: "
+        #     + doc["context"]
+        #     + "\n\n"
+        #     + "Question: "
+        #     + doc["question"]
+        #     + "\n\n"
+        #     + "Answer:"
+        # )
         return (
-            "Context: "
+            "Kaynak: "
             + doc["context"]
             + "\n\n"
-            + "Question: "
+            + "Soru: "
             + doc["question"]
             + "\n\n"
-            + "Answer:"
+            + "Cevap:"
         )
 
     def should_decontaminate(self):
@@ -234,40 +253,3 @@ class XQuAD(Task):
             "best_exact": True,  # Best exact match (with varying threshold)
             "best_f1": True,  # Best F1 (with varying threshold)
         }
-
-@register_task("xquad-tr")
-class XQuADTR(XQuAD):
-    DATASET_NAME = "xquad.tr"
-
-    def doc_to_text(self, doc):
-        return (
-            "Kaynak: "
-            + doc["context"]
-            + "\n\n"
-            + "Soru: "
-            + doc["question"]
-            + "\n\n"
-            + "Cevap:"
-        )
-
-
-@register_task("xquad-tr-xglm")
-class XQuADTRXGLM(XQuADTR):
-    def construct_requests(self, doc, ctx, **kwargs):
-        """generate until </s>"""
-        return [
-            Instance(
-                request_type="generate_until",
-                doc=doc,
-                arguments=(ctx, {"until": ["</s>"]}),
-                idx=0,
-                **kwargs
-            ),
-            Instance(
-                request_type="loglikelihood",
-                doc=doc,
-                arguments=(ctx, " " + "unanswerable"),
-                idx=0,
-                **kwargs
-            ),
-        ]

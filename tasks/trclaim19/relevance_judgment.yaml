@@ -1,0 +1,7 @@
+include: common.yaml
+task: relevance_judgment
+doc_to_text: "Aşağıda bir tweet ve uzmanlar tarafından doğrulanmış bir iddia verilmektedir:\n\nTweet: \"{{tweet}}\"\nİddia: \"{{claim}}\"\n\nVerilen tweet, iddia ile alakalı mıdır?"
+doc_to_target: "{{relevance_judgment}}"
+doc_to_choice:
+  - "Hayır"
+  - "Evet"

@@ -1,12 +1,12 @@
 group:
   - wmt-t5-prompt
-task: wmt-tr-en-t5-prompt
+task: wmt-tr-en-prompt
 dataset_path: wmt16
 dataset_name: tr-en
 training_split: train
 validation_split: validation
 output_type: generate_until
-doc_to_text: "translate English to Turkish: {{translation.en}}"
+doc_to_text: "Translate English: {{translation.en}}\n\nTurkish:"
 doc_to_target: "{{translation.tr}}"
 metric_list:
   - metric: wer

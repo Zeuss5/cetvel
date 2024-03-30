@@ -1,0 +1,9 @@
+include: nli_tr_common.yaml
+task: snli_tr
+dataset_path: nli_tr
+dataset_name: snli_tr
+training_split: train
+validation_split: validation
+test_split: test
+
+

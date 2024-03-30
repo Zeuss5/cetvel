@@ -1,6 +1,6 @@
-task: xlsum_tr
-dataset_path: csebuetnlp/xlsum 
-dataset_name: turkish
+task: mlsum_tr
+dataset_path: mlsum
+dataset_name: tu
 training_split: train
 validation_split: validation
 test_split: test
@@ -9,7 +9,7 @@ doc_to_text: "Başlık: {{title}}\n\nMetin: {{text}}\n\nÖzet:"
 doc_to_target: "{{summary}}"
 generation_kwargs:
   # until:
-  #   - "</s>"
+  #   - "\n\n"
   do_sample: false
   temperature: 0.0
   # max_length: 512
@@ -26,3 +26,5 @@ metric_list:
   - metric: !function metrics.rougeLsum
     aggregation: !function metrics.agg_rougeLsum
     higher_is_better: true
+metadata:
+  version: 0.0

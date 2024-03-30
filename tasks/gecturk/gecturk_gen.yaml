@@ -1,0 +1,20 @@
+group: gecturk
+task: gecturk_generation
+dataset_path: mcemilg/GECTurk-generation
+training_split: train
+validation_split: validation
+test_split: test
+output_type: generate_until
+doc_to_text: "Verilen cumlenin yazım hatalarını duzeltin.\nHatalı Cümle: {{source}}\nDüzeltilmiş hali: "
+doc_to_target: "{{target}}"
+generation_kwargs:
+  until:
+    - "\n"
+  do_sample: false
+  temperature: 0.0
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 0.0

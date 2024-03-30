@@ -1,0 +1,9 @@
+include: common.yaml
+task: xfact_tr
+dataset_name: tr
+doc_to_text: "İddia: \"{{claim}}\"\n\nYukarıda verilen iddia doğru mu?"
+doc_to_choice:
+  - "Doğru"
+  - "Yanlış"
+  - "Karmaşık veya sınıflandırılması zor"
+  - "Kısmen doğru veya yanıltıcı"

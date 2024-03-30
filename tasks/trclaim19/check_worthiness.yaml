@@ -1,0 +1,7 @@
+include: common.yaml
+task: check_worthiness
+doc_to_text: "Aşağıda bir tweet ve bir iddia verilmektedir:\n\nTweet: \"{{tweet}}\"\nİddia: \"{{claim}}\"\n\nBu tweet ve iddia önemli mi ve doğruluğunu kontrol etmeye değer mi?"
+doc_to_target: "{{check_worthiness}}"
+doc_to_choice:
+  - "Hayır"
+  - "Evet"

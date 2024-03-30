@@ -5,25 +5,35 @@ training_split: train
 validation_split: validation
 test_split: test
 output_type: generate_until
-doc_to_text: "{{text}}"
+doc_to_text: "Metin: {{text}}\n\nÖzet:"
 doc_to_target: "{{summary}}"
-# process_results: !function utils.process_results_gen
+process_results: !function utils.process_results_gen
 generation_kwargs:
   until:
-    - "</s>"
+    # - "</s>"
+    - "\n"
   do_sample: false
   temperature: 0.0
-  max_length: 512
+  # max_length: 512
 metric_list:
-  - metric: !function metrics.rouge1
-    aggregation: !function metrics.agg_rouge1
+  - metric: rouge1
+    hf_evaluate: true
+    aggregation: mean
     higher_is_better: true
-  - metric: !function metrics.rouge2
-    aggregation: !function metrics.agg_rouge2
+
+  - metric: rouge2
+    hf_evaluate: true
+    aggregation: mean
     higher_is_better: true
-  - metric: !function metrics.rougeL
-    aggregation: !function metrics.agg_rougeL
+  
+  - metric: rougeL
+    hf_evaluate: true
+    aggregation: mean
     higher_is_better: true
-  - metric: !function metrics.rougeLsum
-    aggregation: !function metrics.agg_rougeLsum
+
+  - metric: rougeLsum
+    hf_evaluate: true
+    aggregation: mean
     higher_is_better: true
+metadata:
+  version: 0.0
