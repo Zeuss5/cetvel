@@ -1,14 +1,15 @@
-# Pergel: A Unified Benchmark for Evaluating LLMs in Turkish
+# Pergel: A Unified Benchmark for Evaluating Turkish LLMs
 
 Pergel (**Per**formans Göster**gel**eri) is an extended version of the [lm-eval-harness](https://github.com/EleutherAI/lm-evaluation-harness) tool, specifically includes tasks/datasets for benchmarking Turkish Large Language Models (LLMs). This tool encompasses a variety of tasks curated to assess different aspects of model performance in the Turkish language. Our primary goal is to objectively evaluate the capabilities of large language models in understanding and processing Turkish.
 
 ## Tasks
 
 1. **Extractive Question Answering**
-2. **Machine Translation**
-3. **Multiple Choice**
-4. **Summarization**
-5. **Procedural Language Understanding**
+2. **Multiple Choice Question Answering**
+3. **Natural Language Inference**
+4. **Machine Translation**
+5. **Summarization**
+6. **Grammatical Error Correction**
 
 ## Installation
 
@@ -40,11 +41,12 @@ pip install -r requirements.txt
 
 ## Usage
 
-Pergel utilizes the identical command line interface as lm-eval-harness. Here is an example command,
+Pergel utilizes the identical command line interface as `lm-eval-harness`. Here is an example command,
 ```bash
-python -m lm_eval --model hf \
+python -m lm_eval --model hf --include_path ./tasks/ \
  --model_args pretrained=openai-community/gpt2 \
- --tasks exams_tr,xquad_tr,tquad,turkish_plu --device cuda:0 --batch_size 4 --write_out --log_samples --output_path outs
+ --tasks exams_tr,xquad_tr,tquad,turkish_plu \
+ --device cuda:0 --batch_size 4 --write_out --log_samples --output_path outs
 ```
 
 For more details on the usage, refer to the [lm-eval-harness](/lm-evaluation-harness/) repository.
@@ -53,11 +55,24 @@ Checkout the [examples](/examples/) folder for more examples to run the all task
 
 ## Task Details
 
-| Datasets                                    | Tasks                                              | Metrics                            |
+| Task <img width=250/> | Datasets <img width=150/> | Metrics  |
 |---------------------------------------------|----------------------------------------------------|------------------------------------|
-| [xquad](/tasks/xquad/), [tquad](/tasks/tquad/), [MKQA-tr](/tasks/mkqa_tr/) | Extractive Question Answering                      | Exact Match, F1                    |
-| [gecturk](/tasks/gecturk/) | Grammatical Error Correction | Exact Match |
-| [wmt2016](/tasks/wmt2016/)                  | Machine Translation                                | wer, bleu                          |
-| [EXAMS](/tasks/exams/), [Belebele](/tasks/belebele_tr/), [IronyTR](/tasks/ironytr/), [TRClaim-19](/tasks/trclaim19/), [xcopa](/tasks/xcopa/), [news_cat](/tasks/news_cat/), [XNLI](/tasks/nli_tr/), [SNLI-tr](/tasks/nli_tr/), [MNLI-tr](/tasks/nli_tr/), [OffensEval-TR](/tasks/offenseval_tr/), [STSb-TR](/tasks/sts_tr/), [XCOPA](/tasks/xcopa/), [X-FACT](/tasks/xfact/) | Multiple Choice                                    | Accuracy, Norm Accuracy            |
-| [TurkishPLU/summarization](/tasks/tr_wikihow_summ/), [MLSum](tasks/mlsum), [XLSum](tasks/xlsum), [WikiLingua](/tasks/wiki_lingua/) | Summarization                                      | Rouge Scores                       |
-| [Turkish PLU](/tasks/turkish_plu/)          | Step Ordering, Next Event Prediction, Step Inference, Goal Inference | Accuracy, Norm Accuracy            |
+| Extractive Question Answering | [xquad](/tasks/xquad/) <br> [tquad](/tasks/tquad/) <br> [MKQA-tr](/tasks/mkqa_tr/) |  Exact Match <br> F1 |
+| Multiple Choice Question Answering | [EXAMS](/tasks/exams/) <br> [Belebele](/tasks/belebele_tr/) <br> [Turkish PLU](/tasks/turkish_plu/) <br> [IronyTR](/tasks/ironytr/) <br> [TRClaim-19](/tasks/trclaim19/) <br> [xcopa](/tasks/xcopa/) <br> [news_cat](/tasks/news_cat/) <br> [OffensEval-TR](/tasks/offenseval_tr/) <br> [STSb-TR](/tasks/sts_tr/) <br> [XCOPA](/tasks/xcopa/) <br> [X-FACT](/tasks/xfact/) | Accuracy |
+| Natural Language Inference | [XNLI](/tasks/nli_tr/) <br> [SNLI-tr](/tasks/nli_tr/) <br> [MNLI-tr](/tasks/nli_tr/) | Accuracy |
+| Machine Translation | [wmt2016](/tasks/wmt2016/) | WER <br> BLEU |
+| Summarization | [TurkishPLU](/tasks/tr_wikihow_summ/) <br> [MLSum](tasks/mlsum) <br> [XLSum](tasks/xlsum) <br> [WikiLingua](/tasks/wiki_lingua/) | ROUGE |         |
+| Grammatical Error Correction | [gecturk](/tasks/gecturk/) | Exact Match |
+
+
+## Citation
+If you find Pergel beneficial for your research, please cite it,
+
+```bibtex
+@misc{kuisai2024pergel,
+    title={Pergel: A Unified Benchmark for Evaluating Turkish LLMs},
+    author={Ilker Kesen and Mustafa Cemil Guney and Aykut Erdem and Gozde Gul Sahin},
+    year={2024},
+    url={https://github.com/KUIS-AI/pergel}
+}
+```
