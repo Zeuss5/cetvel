@@ -6,7 +6,7 @@ dataset_name: tr-en
 training_split: train
 validation_split: validation
 output_type: generate_until
-doc_to_text: "Translate English: {{translation.en}}\n\nTurkish:"
+doc_to_text: "Translate English to Turkish.\n\nEnglish: {{translation.en}}\nTurkish:"
 doc_to_target: "{{translation.tr}}"
 metric_list:
   - metric: wer

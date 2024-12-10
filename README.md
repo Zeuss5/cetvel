@@ -7,9 +7,10 @@ Pergel (**Per**formans Göster**gel**eri) is an extended version of the [lm-eval
 1. **Extractive Question Answering**
 2. **Multiple Choice Question Answering**
 3. **Natural Language Inference**
-4. **Machine Translation**
-5. **Summarization**
-6. **Grammatical Error Correction**
+4. **Text Classification**
+5. **Machine Translation**
+6. **Summarization**
+7. **Grammatical Error Correction**
 
 ## Installation
 
@@ -58,10 +59,11 @@ Checkout the [examples](/examples/) folder for more examples to run the all task
 | Task <img width=250/> | Datasets <img width=150/> | Metrics  |
 |---------------------------------------------|----------------------------------------------------|------------------------------------|
 | Extractive Question Answering | [xquad](/tasks/xquad/) <br> [tquad](/tasks/tquad/) <br> [MKQA-tr](/tasks/mkqa_tr/) |  Exact Match <br> F1 |
-| Multiple Choice Question Answering | [EXAMS](/tasks/exams/) <br> [Belebele](/tasks/belebele_tr/) <br> [Turkish PLU](/tasks/turkish_plu/) <br> [IronyTR](/tasks/ironytr/) <br> [TRClaim-19](/tasks/trclaim19/) <br> [xcopa](/tasks/xcopa/) <br> [news_cat](/tasks/news_cat/) <br> [OffensEval-TR](/tasks/offenseval_tr/) <br> [STSb-TR](/tasks/sts_tr/) <br> [XCOPA](/tasks/xcopa/) <br> [X-FACT](/tasks/xfact/) | Accuracy |
+| Multiple Choice Question Answering | [EXAMS](/tasks/exams/) <br> [Belebele](/tasks/belebele_tr/) <br> [Turkish PLU](/tasks/turkish_plu/) <br> [XCOPA](/tasks/xcopa/) | Accuracy |
+| Text Classification | [IronyTR](/tasks/ironytr/) <br> [TRClaim-19](/tasks/trclaim19/) <br> [news_cat](/tasks/news_cat/) <br> [OffensEval-TR](/tasks/offenseval_tr/) <br> [STSb-TR](/tasks/sts_tr/) <br> [X-FACT](/tasks/xfact/) | Accuracy |
 | Natural Language Inference | [XNLI](/tasks/nli_tr/) <br> [SNLI-tr](/tasks/nli_tr/) <br> [MNLI-tr](/tasks/nli_tr/) | Accuracy |
 | Machine Translation | [wmt2016](/tasks/wmt2016/) | WER <br> BLEU |
-| Summarization | [TurkishPLU](/tasks/tr_wikihow_summ/) <br> [MLSum](tasks/mlsum) <br> [XLSum](tasks/xlsum) <br> [WikiLingua](/tasks/wiki_lingua/) | ROUGE |         |
+| Summarization | [TurkishPLU](/tasks/tr_wikihow_summ/) <br> [MLSum](tasks/mlsum) <br> [XLSum](tasks/xlsum) <br> [WikiLingua](/tasks/wiki_lingua/) | ROUGE |
 | Grammatical Error Correction | [gecturk](/tasks/gecturk/) | Exact Match |
 
 

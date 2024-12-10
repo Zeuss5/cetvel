@@ -210,3 +210,7 @@ tags
 # Ignore all local history of files
 .history
 .ionide
+
+# pixi environments
+.pixi
+*.egg-info
