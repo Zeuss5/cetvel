@@ -1,6 +1,6 @@
-# Pergel: A Unified Benchmark for Evaluating Turkish LLMs
+# Cetvel: A Unified Benchmark for Evaluating Turkish LLMs
 
-Pergel (**Per**formans Göster**gel**eri) is an extended version of the [lm-eval-harness](https://github.com/EleutherAI/lm-evaluation-harness) tool, specifically includes tasks/datasets for benchmarking Turkish Large Language Models (LLMs). This tool encompasses a variety of tasks curated to assess different aspects of model performance in the Turkish language. Our primary goal is to objectively evaluate the capabilities of large language models in understanding and processing Turkish.
+Cetvel is an extended version of the [lm-eval-harness](https://github.com/EleutherAI/lm-evaluation-harness) tool, specifically includes tasks/datasets for benchmarking Turkish Large Language Models (LLMs). This tool encompasses a variety of tasks curated to assess different aspects of model performance in the Turkish language. Our primary goal is to objectively evaluate the capabilities of large language models in understanding and processing Turkish.
 
 ## Tasks
 
@@ -17,20 +17,14 @@ Pergel (**Per**formans Göster**gel**eri) is an extended version of the [lm-eval
 Clone the repository using the following command to fetch the submodules:
 
 ```bash
-git clone git@github.com:KUIS-AI/pergel.git --recursive
-```
-
-Replace the tasks folder in `lm-evaluation-harness`:
-```bash
-cd pergel
-ln -sfn "$(pwd)/tasks" "$(pwd)/lm-evaluation-harness/lm_eval/tasks/pergel"
+git clone git@github.com:KUIS-AI/cetvel.git --recursive
 ```
 
 Create a virtual environment with any tool of your choice (e.g. `conda`, `virtualenv`).
 ```bash
-conda create -n pergel python=3.9
+conda create -n cetvel python=3.9
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-conda activate pergel
+conda activate cetvel
 ```
 
 Install the evaluation harness and other dependencies:
@@ -42,7 +36,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Pergel utilizes the identical command line interface as `lm-eval-harness`. Here is an example command,
+Cetvel utilizes the identical command line interface as `lm-eval-harness`. Here is an example command,
 ```bash
 python -m lm_eval --model hf --include_path ./tasks/ \
  --model_args pretrained=openai-community/gpt2 \
@@ -68,13 +62,13 @@ Checkout the [examples](/examples/) folder for more examples to run the all task
 
 
 ## Citation
-If you find Pergel beneficial for your research, please cite it,
+If you find Cetvel beneficial for your research, please cite it,
 
 ```bibtex
-@misc{kuisai2024pergel,
-    title={Pergel: A Unified Benchmark for Evaluating Turkish LLMs},
+@misc{kuisai2024cetvel,
+    title={Cetvel: A Unified Benchmark for Evaluating Turkish LLMs},
     author={Ilker Kesen and Mustafa Cemil Guney and Aykut Erdem and Gozde Gul Sahin},
     year={2024},
-    url={https://github.com/KUIS-AI/pergel}
+    url={https://github.com/KUIS-AI/cetvel}
 }
 ```
