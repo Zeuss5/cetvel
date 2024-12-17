@@ -20,12 +20,14 @@ Clone the repository using the following command to fetch the submodules:
 git clone git@github.com:KUIS-AI/cetvel.git --recursive
 ```
 
-Create a virtual environment with any tool of your choice (e.g. `conda`, `virtualenv`).
+Create a virtual environment with any tool of your choice (e.g. `conda`, `virtualenv`) and install core PyTorch dependencies.
 ```bash
 conda create -n cetvel python=3.9
-conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 conda activate cetvel
+pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu118
 ```
+
+Note that we only tested Cetvel using the specified PyTorch (`==2.3.1`) and CUDA versions (`==11.8`).
 
 Install the evaluation harness and other dependencies:
 ```bash
@@ -44,7 +46,7 @@ python -m lm_eval --model hf --include_path ./tasks/ \
  --device cuda:0 --batch_size 4 --write_out --log_samples --output_path outs
 ```
 
-For more details on the usage, refer to the [lm-eval-harness](/lm-evaluation-harness/) repository.
+For more details on the usage, and explore other evaluation settings, refer to the [lm-eval-harness](/lm-evaluation-harness/) repository.
 
 Checkout the [examples](/examples/) folder for more examples to run the all tasks with different models.
 
