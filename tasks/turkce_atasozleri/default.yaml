@@ -1,0 +1,24 @@
+task: turkce_atasozleri
+dataset_path: abrek/turkce-atasozleri-lm-evaluation-harness
+test_split: train
+output_type: generate_until
+should_decontaminate: true
+doc_to_decontamination_query: "{{question}}"
+doc_to_text: "Atasözü: {{question}}\nYukarıdaki atasözünün tanımı aşağıdakilerden hangisidir?\nA: {{choice1}}\nB: {{choice2}}\nC: {{choice3}}\nD: {{choice4}}\nCevabı şıkların numarası ile veriniz. 0: A, 1: B, 2: C, 3: D Cevap:"
+doc_to_target: answer
+generation_kwargs:
+  until:
+    - "\n"
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+    ignore_case: true
+metadata:
+  version: 0.0
+filter_list:
+  - name: "get_result"
+    filter:
+      - function: "regex"
+        regex_pattern: "[0-3]"
+      - function: "take_first"

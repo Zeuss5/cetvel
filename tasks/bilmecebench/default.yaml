@@ -1,0 +1,30 @@
+task: bilmecebench
+dataset_path: abrek/bilmecebench-lm-evaluation-harness
+output_type: generate_until
+validation_split: test
+doc_to_text: |
+  Bilmece: {{riddle}}
+  Bilmecenin anlamı aşağıdakilerden hangisidir?
+  A. {{choice_0}}
+  B. {{choice_1}}
+  C. {{choice_2}}
+  D. {{choice_3}}
+  Cevabı sadece şıkların harfleri ile veriniz.
+  Cevap:
+doc_to_target: "{{['A','B','C','D'][correct_choice]}}"
+generation_kwargs:
+  until:
+    - "\n"
+filter_list:
+  - name: "get_result"
+    filter:
+      - function: "regex"
+        regex_pattern: "[A-Da-d]"
+      - function: "take_first"
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+    ignore_case: true
+metadata:
+  version: 0.0
