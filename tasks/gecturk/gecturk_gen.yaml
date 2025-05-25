@@ -12,6 +12,12 @@ generation_kwargs:
     - "\n"
   do_sample: false
   temperature: 0.0
+filter_list:
+  - name: "regex_filter_applies_strip_internally"
+    filter:
+      - function: "regex"
+        regex_pattern: ".*"
+      - function: "take_first"
 metric_list:
   - metric: exact_match
     aggregation: mean
