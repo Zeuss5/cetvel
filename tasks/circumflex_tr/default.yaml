@@ -1,0 +1,25 @@
+task: circumflex_tr
+dataset_path: abrek/circumflex_tr
+test_split: train
+fewshot_split: train
+fewshot_config:
+  sampler: first_n
+output_type: multiple_choice
+doc_to_text: |
+  Kelime: {{word}}
+  Kelimenin anlamı aşağıdakilerden hangisidir?
+  A. {{definition1}}
+  B. {{definition2}}
+  Cevabı sadece şıkların harfleri ile veriniz.
+  Cevap:
+doc_to_choice: ["A", "B"]
+doc_to_target: "{{ answer }}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 0.0
