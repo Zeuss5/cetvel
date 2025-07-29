@@ -7,9 +7,9 @@ doc_to_text: "Aşağıda iki cümle verilmektedir:\n\nCümle 1: \"{{premise}}\"\
 # TUTARLI = entailment
 doc_to_target: "{{label}}"
 doc_to_choice:
-  - "ÇELİŞKİLİ"
-  - "ALAKASIZ"
   - "TUTARLI"
+  - "ALAKASIZ"
+  - "ÇELİŞKİLİ"
 should_decontaminate: true
 doc_to_decontamination_query: premise
 metric_list:
