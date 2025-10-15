@@ -17,7 +17,7 @@ Cetvel is an extended version of the [lm-eval-harness](https://github.com/Eleuth
 Clone the repository using the following command to fetch the submodules:
 
 ```bash
-git clone git@github.com:KUIS-AI/cetvel.git --recursive
+git clone https://github.com/Zeuss5/cetvel.git --recursive
 ```
 
 Create a virtual environment with any tool of your choice (e.g. `conda`, `virtualenv`) and install core PyTorch dependencies.
